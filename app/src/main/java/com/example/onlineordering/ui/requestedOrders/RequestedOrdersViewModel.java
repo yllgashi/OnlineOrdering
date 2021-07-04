@@ -1,16 +1,16 @@
-package com.example.onlineordering.ui.slideshow;
+package com.example.onlineordering.ui.requestedOrders;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class RequestedOrdersViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public RequestedOrdersViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is requested orders fragment");
     }
 
     public LiveData<String> getText() {

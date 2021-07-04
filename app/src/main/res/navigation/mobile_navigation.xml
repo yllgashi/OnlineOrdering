@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_requested_orders">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.onlineordering.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_requested_orders"
+        android:name="com.example.onlineordering.ui.requestedOrders.RequestedOrdersFragment"
+        android:label="@string/menu_requested_orders"
+        tools:layout="@layout/fragment_requested_orders" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.onlineordering.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_arrived_orders"
+        android:name="com.example.onlineordering.ui.arrivedOrders.ArrivedOrdersFragment"
+        android:label="@string/menu_arrived_orders"
+        tools:layout="@layout/fragment_arrived_orders" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.onlineordering.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_products"
+        android:name="com.example.onlineordering.ui.products.ProductsFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_products" />
 </navigation>

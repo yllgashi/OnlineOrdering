@@ -1,16 +1,16 @@
-package com.example.onlineordering.ui.home;
+package com.example.onlineordering.ui.arrivedOrders;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class ArrivedOrdersViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public ArrivedOrdersViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is arrived orders fragment");
     }
 
     public LiveData<String> getText() {
