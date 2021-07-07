@@ -1,5 +1,6 @@
 package com.example.onlineordering.ui.products;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class ProductsFragment extends Fragment {
         return root;
     }
 
+    // Initialize list view
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void InitializeList(View fragmentView) {
         ListView listview = (ListView) fragmentView.findViewById(R.id.products_list_view);
@@ -61,6 +63,8 @@ public class ProductsFragment extends Fragment {
         listview.setAdapter(adapter);
     }
 
+    // Get title of each products
+    @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.N)
     private  ArrayList<String> GetProductsName() {
         ArrayList<String> productNames = new ArrayList<String>();
