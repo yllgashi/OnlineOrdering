@@ -19,6 +19,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlineordering.R;
 import com.example.onlineordering.data.StaticData;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -35,15 +37,13 @@ public class ArrivedOrdersFragment extends Fragment {
         // get fragment element
         View root = inflater.inflate(R.layout.fragment_arrived_orders, container, false);
 
-        // get listview widget
-        ListView listview = (ListView) root.findViewById(R.id.arrived_orders_list_view);
-
         arrivedOrdersViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(@Nullable String s) {
-                // initialize listview
+                // initialize widgets
                 InitializeList(root);
+                InitializeFabMethod(root);
             }
         });
         return root;
@@ -68,5 +68,18 @@ public class ArrivedOrdersFragment extends Fragment {
         StaticData.arrivedOrders.forEach((element) -> arrivedOrdersDetails.add(element.toString()));
 
         return arrivedOrdersDetails;
+    }
+
+    private void InitializeFabMethod(View fragmentView) {
+        // get fab widget
+        FloatingActionButton fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab_arrived_orders);
+
+        fab.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Arrived orders", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        }));
     }
 }

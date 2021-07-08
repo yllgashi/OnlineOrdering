@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlineordering.R;
 import com.example.onlineordering.data.StaticData;
-import com.example.onlineordering.data.model.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductsFragment extends Fragment {
 
@@ -37,15 +36,13 @@ public class ProductsFragment extends Fragment {
         // get fragment element
         View root = inflater.inflate(R.layout.fragment_products, container, false);
 
-        // get listview widget
-        ListView listview = (ListView) root.findViewById(R.id.products_list_view);
-
         productsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(@Nullable String s) {
-                // initialize listview
+                // initialize widgets
                 InitializeList(root);
+                InitializeFabMethod(root);
             }
         });
 
@@ -66,10 +63,23 @@ public class ProductsFragment extends Fragment {
     // Get title of each products
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private  ArrayList<String> GetProductsName() {
+    private ArrayList<String> GetProductsName() {
         ArrayList<String> productNames = new ArrayList<String>();
         StaticData.products.forEach((element) -> productNames.add(element.getProductName()));
 
-        return  productNames;
+        return productNames;
+    }
+
+    private void InitializeFabMethod(View fragmentView) {
+        // get fab widget
+        FloatingActionButton fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab_products);
+
+        fab.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Products", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        }));
     }
 }

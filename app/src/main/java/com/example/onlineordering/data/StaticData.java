@@ -22,6 +22,21 @@ import java.util.ListIterator;
 public class StaticData {
     public static ArrayList<Product> products = new ArrayList<Product>(
             Arrays.asList(new Product("1", "Buston", "I mire", 2),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
+                    new Product("2", "Pjeper", "I mire", 3),
                     new Product("2", "Pjeper", "I mire", 3))
     );
 
@@ -31,11 +46,29 @@ public class StaticData {
 
     public static ArrayList<Order> arrivedOrders = new ArrayList<Order>(
             Arrays.asList(new Order("1", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
                     new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)))
     );
 
     public static ArrayList<Order> requestedOrders = new ArrayList<Order>(
             Arrays.asList(new Order("3", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("4", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)))
+                    new Order("4", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
+                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)))
     );
 }
