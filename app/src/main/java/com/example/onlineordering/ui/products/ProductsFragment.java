@@ -3,6 +3,7 @@ package com.example.onlineordering.ui.products;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlineordering.R;
+import com.example.onlineordering.api.ApiService;
+import com.example.onlineordering.api.services.ProductService;
 import com.example.onlineordering.data.StaticData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -77,8 +80,10 @@ public class ProductsFragment extends Fragment {
         fab.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Products", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Products", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                ProductService ps = new ProductService();
+                ps.getProoducts();
             }
         }));
     }

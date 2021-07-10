@@ -1,6 +1,6 @@
 package com.example.onlineordering.data;
 
-import com.example.onlineordering.data.model.LoggedInUser;
+import com.example.onlineordering.api.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

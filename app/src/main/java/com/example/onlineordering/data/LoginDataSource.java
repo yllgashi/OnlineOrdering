@@ -1,6 +1,6 @@
 package com.example.onlineordering.data;
 
-import com.example.onlineordering.data.model.LoggedInUser;
+import com.example.onlineordering.api.model.LoggedInUser;
 
 import java.io.IOException;
 

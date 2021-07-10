@@ -2,21 +2,14 @@ package com.example.onlineordering.data;
 
 import android.os.Build;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.example.onlineordering.data.model.Order;
-import com.example.onlineordering.data.model.Product;
-import com.example.onlineordering.data.model.Warehouse;
+import com.example.onlineordering.api.model.Order;
+import com.example.onlineordering.api.model.Product;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class StaticData {
@@ -40,35 +33,31 @@ public class StaticData {
                     new Product("2", "Pjeper", "I mire", 3))
     );
 
-    public static ArrayList<Warehouse> warehouses = new ArrayList<Warehouse>(
-            Arrays.asList(new Warehouse("1", "Center", "Prishtine"))
-    );
-
     public static ArrayList<Order> arrivedOrders = new ArrayList<Order>(
-            Arrays.asList(new Order("1", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)))
+            Arrays.asList(new Order("1", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()))
     );
 
     public static ArrayList<Order> requestedOrders = new ArrayList<Order>(
-            Arrays.asList(new Order("3", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("4", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)),
-                    new Order("2", LocalDate.now(), products, LocalDate.now(), warehouses.get(0)))
-    );
+            Arrays.asList(new Order("3", LocalDate.now(), products, LocalDate.now()),
+                    new Order("4", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+                    new Order("2", LocalDate.now(), products, LocalDate.now())
+            ));
 }

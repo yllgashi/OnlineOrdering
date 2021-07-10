@@ -1,20 +1,20 @@
-package com.example.onlineordering.data.model;
+package com.example.onlineordering.api.model;
 
 public class Product {
-    private String productId;
+    private String _id;
     private String productName;
     private String productDescription;
     private double productPrice;
 
     public Product(String productId, String productName, String productDescription, double productPrice) {
-        this.productId = productId;
+        this._id = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
     }
 
     public String getProductId() {
-        return productId;
+        return _id;
     }
 
     public String getProductName() {

@@ -8,7 +8,7 @@ import android.util.Patterns;
 
 import com.example.onlineordering.data.LoginRepository;
 import com.example.onlineordering.data.Result;
-import com.example.onlineordering.data.model.LoggedInUser;
+import com.example.onlineordering.api.model.LoggedInUser;
 import com.example.onlineordering.R;
 
 public class LoginViewModel extends ViewModel {

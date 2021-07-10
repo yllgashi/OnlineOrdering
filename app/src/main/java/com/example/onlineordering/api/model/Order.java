@@ -1,29 +1,26 @@
-package com.example.onlineordering.data.model;
+package com.example.onlineordering.api.model;
 
 import androidx.annotation.NonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private String orderId;
+    private String _id;
     private LocalDate orderDate;
     private ArrayList<Product> orderProducts;
     private LocalDate orderDeadline;
-    private Warehouse warehouse;
 
-    public Order(String orderId, LocalDate orderDate, ArrayList<Product> orderProducts, LocalDate orderDeadline, Warehouse warehouse) {
-        this.orderId = orderId;
+    public Order(String orderId, LocalDate orderDate, ArrayList<Product> orderProducts, LocalDate orderDeadline) {
+        this._id = orderId;
         this.orderDate = orderDate;
         this.orderProducts = orderProducts;
         this.orderDeadline = orderDeadline;
-        this.warehouse = warehouse;
     }
 
     public String getOrderId() {
-        return orderId;
+        return _id;
     }
 
     public LocalDate getOrderDate() {
@@ -38,13 +35,9 @@ public class Order {
         return orderDeadline;
     }
 
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
     @NonNull
     @Override
     public String toString() {
-        return "ID: " + this.orderId + "          " + "Deadline: " + this.orderDeadline;
+        return "ID: " + this._id + "          " + "Deadline: " + this.orderDeadline;
     }
 }
