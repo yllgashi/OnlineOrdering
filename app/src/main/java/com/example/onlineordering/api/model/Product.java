@@ -13,6 +13,8 @@ public class Product {
         this.productPrice = productPrice;
     }
 
+    public Product() {}
+
     public String getProductId() {
         return _id;
     }

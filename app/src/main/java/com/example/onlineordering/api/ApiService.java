@@ -19,8 +19,8 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class ApiService {
-    public static String base_url = "http://localhost:8000";
-    private static String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MGU4ZDNjNjcwZjhkZjUxYjBmODJjZmUiLCJpYXQiOjE2MjU4NzEzMDJ9.dYcma5EGKf94l9VKaxagXCkMzU7a30nZKM28Ar_M6F0";
+    public static String base_url = "https://online-ordering-express.herokuapp.com";
+    public static String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MGU4ZDNjNjcwZjhkZjUxYjBmODJjZmUiLCJpYXQiOjE2MjU4NzEzMDJ9.dYcma5EGKf94l9VKaxagXCkMzU7a30nZKM28Ar_M6F0";
 
     public String get(String path, RequestParams params) {
         final String[] json = new String[1];
@@ -30,12 +30,6 @@ public class ApiService {
             // Headers
             client.addHeader("Content-Type", "application/json");
             client.addHeader("Authorization", "Bearer " + authToken);
-
-
-            // Http Request Params Object
-//            RequestParams params = new RequestParams();
-//            String test = "B2mGaME";
-//            params.put("param1", test.toString());
 
 
             client.get(base_url + path, new AsyncHttpResponseHandler() {
