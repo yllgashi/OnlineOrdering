@@ -65,7 +65,7 @@ public class ArrivedOrdersFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private ArrayList<String> GetOrdersData() {
         ArrayList<String> arrivedOrdersDetails = new ArrayList<String>();
-        StaticData.arrivedOrders.forEach((element) -> arrivedOrdersDetails.add(element.toString()));
+//        StaticData.arrivedOrders.forEach((element) -> arrivedOrdersDetails.add(element.toString()));
 
         return arrivedOrdersDetails;
     }

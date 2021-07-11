@@ -33,31 +33,31 @@ public class StaticData {
                     new Product("2", "Pjeper", "I mire", 3))
     );
 
-    public static ArrayList<Order> arrivedOrders = new ArrayList<Order>(
-            Arrays.asList(new Order("1", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()))
-    );
-
-    public static ArrayList<Order> requestedOrders = new ArrayList<Order>(
-            Arrays.asList(new Order("3", LocalDate.now(), products, LocalDate.now()),
-                    new Order("4", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now()),
-                    new Order("2", LocalDate.now(), products, LocalDate.now())
-            ));
+//    public static ArrayList<Order> arrivedOrders = new ArrayList<Order>(
+//            Arrays.asList(new Order("1", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()))
+//    );
+//
+//    public static ArrayList<Order> requestedOrders = new ArrayList<Order>(
+//            Arrays.asList(new Order("3", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("4", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now()),
+//                    new Order("2", LocalDate.now(), products, LocalDate.now())
+//            ));
 }

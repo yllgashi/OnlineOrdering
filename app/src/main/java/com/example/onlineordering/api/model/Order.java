@@ -8,11 +8,11 @@ import java.util.List;
 
 public class Order {
     private String _id;
-    private LocalDate orderDate;
+    private String orderDate;
     private ArrayList<Product> orderProducts;
-    private LocalDate orderDeadline;
+    private String orderDeadline;
 
-    public Order(String orderId, LocalDate orderDate, ArrayList<Product> orderProducts, LocalDate orderDeadline) {
+    public Order(String orderId, String orderDate, ArrayList<Product> orderProducts, String orderDeadline) {
         this._id = orderId;
         this.orderDate = orderDate;
         this.orderProducts = orderProducts;
@@ -23,7 +23,7 @@ public class Order {
         return _id;
     }
 
-    public LocalDate getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
@@ -31,13 +31,20 @@ public class Order {
         return orderProducts;
     }
 
-    public LocalDate getOrderDeadline() {
+    public String getOrderDeadline() {
         return orderDeadline;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "ID: " + this._id + "          " + "Deadline: " + this.orderDeadline;
+        String res = "";
+        res += "Order date: " + orderDate + "\n";
+        res += "Products:\n";
+        for (int i = 0; i < orderProducts.size(); i++) {
+            res += orderProducts.get(i).getProductName();
+            if(i != orderProducts.size() - 1) res += ", ";
+        }
+        return res;
     }
 }

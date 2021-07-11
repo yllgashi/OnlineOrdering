@@ -3,41 +3,32 @@ package com.example.onlineordering.ui.products;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.onlineordering.R;
 import com.example.onlineordering.api.ApiService;
 import com.example.onlineordering.api.model.Product;
-import com.example.onlineordering.api.services.ProductService;
-import com.example.onlineordering.data.StaticData;
-import com.google.android.gms.common.api.Api;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -119,10 +110,7 @@ public class ProductsFragment extends Fragment {
             }
         };
 
-
         mQueue.add(request);
-
-
     }
 
     // Get title of each products
@@ -142,14 +130,8 @@ public class ProductsFragment extends Fragment {
         fab.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Products", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                ProductService ps = new ProductService();
-                try {
-                    ps.getProducts(fragmentView.getContext());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Snackbar.make(view, "Products", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         }));
     }
