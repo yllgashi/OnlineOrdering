@@ -1,6 +1,7 @@
 package com.example.onlineordering.ui.products;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -130,8 +131,8 @@ public class ProductsFragment extends Fragment {
         fab.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Products", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getActivity(), CreateProductActivity.class);
+                startActivity(intent);
             }
         }));
     }

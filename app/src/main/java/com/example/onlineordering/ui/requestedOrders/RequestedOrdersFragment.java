@@ -1,6 +1,7 @@
 package com.example.onlineordering.ui.requestedOrders;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import com.example.onlineordering.api.ApiService;
 import com.example.onlineordering.api.model.Order;
 import com.example.onlineordering.api.model.Product;
 import com.example.onlineordering.data.StaticData;
+import com.example.onlineordering.ui.products.CreateProductActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -151,8 +153,8 @@ public class RequestedOrdersFragment extends Fragment {
         fab.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Requested orders", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getActivity(), CreateRequestOrderActivity.class);
+                startActivity(intent);
             }
         }));
     }
