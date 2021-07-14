@@ -1,8 +1,7 @@
-package com.example.onlineordering.api.model;
+package com.example.onlineordering.model;
 
 import androidx.annotation.NonNull;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

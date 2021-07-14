@@ -23,9 +23,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.onlineordering.R;
 import com.example.onlineordering.api.ApiService;
-import com.example.onlineordering.api.model.Product;
+import com.example.onlineordering.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;

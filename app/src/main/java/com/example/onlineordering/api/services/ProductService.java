@@ -11,7 +11,7 @@
 //import com.android.volley.toolbox.JsonObjectRequest;
 //import com.android.volley.toolbox.Volley;
 //import com.example.onlineordering.api.ApiService;
-//import com.example.onlineordering.api.model.Product;
+//import com.example.onlineordering.model.Product;
 //import com.google.android.gms.common.api.Api;
 //import com.google.gson.Gson;
 //import com.loopj.android.http.RequestParams;

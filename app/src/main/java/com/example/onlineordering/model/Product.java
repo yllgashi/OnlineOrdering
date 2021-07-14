@@ -1,4 +1,4 @@
-package com.example.onlineordering.api.model;
+package com.example.onlineordering.model;
 
 public class Product {
     private String _id;

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,9 +24,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.onlineordering.R;
 import com.example.onlineordering.api.ApiService;
-import com.example.onlineordering.api.model.Order;
-import com.example.onlineordering.api.model.Product;
-import com.example.onlineordering.data.StaticData;
+import com.example.onlineordering.model.Order;
+import com.example.onlineordering.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 

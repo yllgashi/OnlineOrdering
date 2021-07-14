@@ -4,10 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.onlineordering.api.model.Order;
-import com.example.onlineordering.api.model.Product;
+import com.example.onlineordering.model.Product;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -25,18 +25,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.onlineordering.R;
 import com.example.onlineordering.api.ApiService;
-import com.example.onlineordering.api.model.Order;
-import com.example.onlineordering.api.model.Product;
-import com.example.onlineordering.data.StaticData;
-import com.example.onlineordering.ui.products.CreateProductActivity;
+import com.example.onlineordering.model.Order;
+import com.example.onlineordering.model.Product;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

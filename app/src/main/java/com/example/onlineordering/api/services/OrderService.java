@@ -3,8 +3,8 @@
 //import android.content.Context;
 //
 //import com.example.onlineordering.api.ApiService;
-//import com.example.onlineordering.api.model.Order;
-//import com.example.onlineordering.api.model.Product;
+//import com.example.onlineordering.model.Order;
+//import com.example.onlineordering.model.Product;
 //import com.google.gson.Gson;
 //import com.loopj.android.http.RequestParams;
 //
