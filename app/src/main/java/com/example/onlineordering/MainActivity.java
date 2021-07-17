@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
@@ -31,7 +32,6 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
         }
 //        if (bundle.getString("token").length() > 2)
 //            ApiService.authToken = bundle.getString("token");
-
-        // initialize log out button
-//        logoutButton = findViewById(R.id.action_logout);
-//        initializeLogoutButton();
     }
 
     @Override
@@ -82,14 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void initializeLogoutButton() {
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApiService.authToken = "";
+    public void logoutUser(MenuItem item) {
+        ApiService.authToken = "";
 //                UserPreferences.getInstance().setUserAccountId(-1);
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 }

@@ -23,8 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         this.context = this;
 
-        Log.d("Token", UserPreferences.getInstance().getToken());
-
         // Create a delay in order to fetch token from local db
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

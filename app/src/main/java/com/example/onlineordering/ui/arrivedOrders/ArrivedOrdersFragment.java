@@ -57,7 +57,6 @@ public class ArrivedOrdersFragment extends Fragment {
             public void onChanged(@Nullable String s) {
                 // initialize widgets
                 InitializeList(root);
-                InitializeFabMethod(root);
             }
         });
         return root;
@@ -141,18 +140,5 @@ public class ArrivedOrdersFragment extends Fragment {
         arrivedOrders.forEach((element) -> arrivedOrdersDetails.add(element.toString()));
 
         return arrivedOrdersDetails;
-    }
-
-    private void InitializeFabMethod(View fragmentView) {
-        // get fab widget
-        FloatingActionButton fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab_arrived_orders);
-
-        fab.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Arrived orders", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        }));
     }
 }

@@ -2,10 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/text_product_price"
+    android:id="@+id/fragment_create_product"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.products.CreateProductActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="167dp"
+        android:layout_marginLeft="167dp"
+        android:layout_marginEnd="186dp"
+        android:layout_marginRight="186dp"
+        android:text="@string/create_product_title"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="27dp" />
 
     <EditText
         android:id="@+id/text_product_name"
@@ -25,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_create"
+        android:id="@+id/btn_create_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
@@ -38,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/text_product_price" />
 
     <EditText
         android:id="@+id/text_product_description"
@@ -58,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/text_product_price"
         android:layout_width="235dp"
         android:layout_height="52dp"
         android:layout_marginStart="101dp"

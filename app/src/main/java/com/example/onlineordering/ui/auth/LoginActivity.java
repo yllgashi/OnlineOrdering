@@ -93,17 +93,15 @@ public class LoginActivity extends AppCompatActivity {
                         new Runnable() {
                             @Override
                             public void run() {
-                                while (!loginRequestIsMade) {
-                                    Log.d("Wait", "Waiting for response");
-                                }
+                                if (!loginRequestIsMade)
+                                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                                 if (isAuth) {
                                     intent.putExtra("email", email);
 //                                    intent.putExtra("token", ApiService.authToken);
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    Toast.makeText(getApplicationContext(), "Incorrect. Try again", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 }
                             }
-                        }, 15000);
+                        }, 5000);
 
 
             }
@@ -146,8 +144,8 @@ public class LoginActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("EEEEE", error.getMessage());
-                error.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Incorrect. Try again", Toast.LENGTH_SHORT).show();
+
             }
         }) {    //this is the part, that adds the header to the request
             @Override
