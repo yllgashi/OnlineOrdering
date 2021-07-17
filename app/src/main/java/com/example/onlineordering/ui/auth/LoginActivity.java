@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +27,7 @@ import com.example.onlineordering.api.ApiService;
 import com.example.onlineordering.db.DBHelper;
 import com.example.onlineordering.model.Product;
 import com.example.onlineordering.model.User;
+import com.example.onlineordering.ui.splash.SplashScreenActivity;
 import com.example.onlineordering.utils.UserPreferences;
 
 import org.json.JSONArray;
@@ -37,30 +40,39 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private DBHelper mydb;
+    private Button loginButton;
+    private EditText emailText;
+    private EditText passwordText;
     private RequestQueue mQueue;
     private Context context;
+    private boolean loginRequestIsMade = false;
+    private boolean isAuth = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize UI elements
-        EditText userName = findViewById(R.id.text_email);
-        EditText password = findViewById(R.id.text_password);
-        Button loginButton = findViewById(R.id.btn_login);
-
         // Initialize context
         this.context = this;
 
+        // Initialize UI textboxs
+        emailText = findViewById(R.id.text_email);
+        passwordText = findViewById(R.id.text_password);
+        loginButton = findViewById(R.id.btn_login);
+
+        initializeLoginButton();
+    }
+
+    private void initializeLoginButton() {
         // create login button call back method
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = userName.getText().toString();
-                String password = userName.getText().toString();
+                String email = emailText.getText().toString();
+                String password = passwordText.getText().toString();
 
-                if (username.isEmpty() || password.isEmpty()) {
+                if (email.isEmpty() || password.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("Alert")
                             .setMessage("Fill all the field!!...")
@@ -72,12 +84,27 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                User user = mydb.loginUser(username, password);
-                if (user != null) {
-                    UserPreferences.getInstance().setUserAccountId(user.getId());
-                    getToken(user);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }
+                User user = new User(email, password);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                getToken(user);
+                Handler handler = new Handler();
+                handler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                while (!loginRequestIsMade) {
+                                    Log.d("Wait", "Waiting for response");
+                                }
+                                if (isAuth) {
+                                    intent.putExtra("email", email);
+//                                    intent.putExtra("token", ApiService.authToken);
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    Toast.makeText(getApplicationContext(), "Incorrect. Try again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }, 15000);
+
 
             }
         });
@@ -85,34 +112,49 @@ public class LoginActivity extends AppCompatActivity {
 
     private void getToken(User user) {
         mQueue = Volley.newRequestQueue(context);
+        // create json body
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("email", emailText.getText());
+            jsonBody.put("password", passwordText.getText());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, ApiService.base_url + "/signin", null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, ApiService.base_url + "/signin", jsonBody,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        JSONObject data = null;
                         try {
-                            data = response.getJSONObject("");
-                            String token = data.getString("token");
+                            String token = response.getString("token");
+                            // check if token is returned
+                            if (token.length() > 5) {
+                                isAuth = true;
+                            }
                             ApiService.authToken = token;
-                            // print token
-                            Log.d("MY TOKEN", token);
+
+                            // check that response is returned from server
+                            loginRequestIsMade = true;
+
+                            // save token in UserPreferences
+//                            UserPreferences.getInstance().setToken(token);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.d("EEEEE", error.getMessage());
                 error.printStackTrace();
             }
         }) {    //this is the part, that adds the header to the request
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/json");
-                return params;
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
             }
         };
 

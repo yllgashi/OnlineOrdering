@@ -3,7 +3,6 @@ package com.example.onlineordering.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.onlineordering.MyApplication;
 import com.example.onlineordering.ui.splash.SplashScreenActivity;
 
 public class UserPreferences {
@@ -25,18 +24,27 @@ public class UserPreferences {
 
     }
 
+//
+//    public int getUserAccountId() {
+//        return sharedPreferences.getInt(Constants.USER_ACCOUNT_ID, -1);
+//    }
+//
+//
+//    public void setUserAccountId(int accountId) {
+//        sharedPreferences.edit().putInt(Constants.USER_ACCOUNT_ID, accountId).commit();
+//    }
+////
+//    public String getUserEmail() {
+//        return sharedPreferences.getString(Constants.USER_USERNAME, "Not available");
+//    }
 
-    public int getUserAccountId() {
-        return sharedPreferences.getInt(Constants.USER_ACCOUNT_ID, -1);
+    // set token
+    public void setToken(String token) {
+        sharedPreferences.edit().putString(Constants.USER_ACCESS_TOKEN, token).commit();
     }
 
-
-    public void setUserAccountId(int accountId) {
-        sharedPreferences.edit().putInt(Constants.USER_ACCOUNT_ID, accountId).commit();
+    // get token
+    public String getToken() {
+        return sharedPreferences.getString(Constants.USER_ACCESS_TOKEN, "");
     }
-
-    public String getUserEmail() {
-        return sharedPreferences.getString(Constants.USER_USERNAME, "Not available");
-    }
-
 }

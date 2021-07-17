@@ -1,15 +1,23 @@
 package com.example.onlineordering;
 
+import android.content.ClipData;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.onlineordering.api.ApiService;
+import com.example.onlineordering.ui.auth.LoginActivity;
+import com.example.onlineordering.utils.UserPreferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -23,6 +31,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +53,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Get data from intent
         String email;
+//        String token;
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
+        if (bundle != null) {
             email = bundle.getString("email");
             TextView emailTextView = (TextView) findViewById(R.id.text_user_email);
             emailTextView.setText(email);
         }
+//        if (bundle.getString("token").length() > 2)
+//            ApiService.authToken = bundle.getString("token");
+
+        // initialize log out button
+//        logoutButton = findViewById(R.id.action_logout);
+//        initializeLogoutButton();
     }
 
     @Override
@@ -64,5 +80,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void initializeLogoutButton() {
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiService.authToken = "";
+//                UserPreferences.getInstance().setUserAccountId(-1);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
     }
 }
