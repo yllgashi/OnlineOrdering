@@ -85,25 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 User user = new User(email, password);
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                 getToken(user);
-//                Handler handler = new Handler();
-//                handler.postDelayed(
-//                        new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                if (!loginRequestIsMade)
-//                                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-//                                if (isAuth) {
-//                                    intent.putExtra("email", email);
-////                                    intent.putExtra("token", ApiService.authToken);
-//                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                                }
-//                            }
-//                        }, 5000);
-
-
             }
         });
     }
@@ -129,15 +112,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (token.length() > 5) {
                                 isAuth = true;
                                 ApiService.authToken = token;
+
+                                // navigate to main activity if auth is correct
+                                navigateToMainActivity(user.getEmail());
                             }
-
-                            // check that response is returned from server
-//                            loginRequestIsMade = true;
-
-                            // save token in UserPreferences
-//                            UserPreferences.getInstance().setToken(token);
-
-                            navigateToMainActivity(user.getEmail());
 
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();

@@ -124,7 +124,7 @@ public class ArrivedOrdersFragment extends Fragment {
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "Bearer " + ApiService.authToken);
-                params.put("content-type", "application/json");
+                params.put("Content-type", "application/json");
                 return params;
             }
         };

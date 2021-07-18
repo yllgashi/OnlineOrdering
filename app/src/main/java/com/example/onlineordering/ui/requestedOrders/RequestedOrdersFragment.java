@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,7 @@ public class RequestedOrdersFragment extends Fragment {
                                             product.getDouble("productPrice")
                                     );
                                     productsOfOrders.add(productObject);
+
                                 }
 
                                 Order requestedOrderObject = new Order(
@@ -124,7 +126,7 @@ public class RequestedOrdersFragment extends Fragment {
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "Bearer " + ApiService.authToken);
-                params.put("content-type", "application/json");
+                params.put("Content-type", "application/json");
                 return params;
             }
         };
@@ -139,6 +141,7 @@ public class RequestedOrdersFragment extends Fragment {
         ArrayList<String> requestedOrdersDetails = new ArrayList<String>();
         requestedOrders.forEach((element) -> requestedOrdersDetails.add(element.toString()));
 
+        Log.d("DATA", requestedOrdersDetails.get(0));
         return requestedOrdersDetails;
     }
 
