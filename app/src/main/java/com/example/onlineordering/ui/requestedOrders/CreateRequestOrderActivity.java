@@ -25,6 +25,7 @@ import com.example.onlineordering.model.Order;
 import com.example.onlineordering.model.Product;
 import com.example.onlineordering.ui.products.CreateProductActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,7 +91,7 @@ public class CreateRequestOrderActivity extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("orderDate", order.getOrderDate());
-            jsonBody.put("orderProducts", order.getOrderProducts());
+            jsonBody.put("orderProducts", new JSONArray(order.getOrderProducts()));
             jsonBody.put("orderDeadline", order.getOrderDeadline());
         } catch (JSONException e) {
             e.printStackTrace();
