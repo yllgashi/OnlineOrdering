@@ -45,6 +45,7 @@ public class Order {
     @Override
     public String toString() {
         String res = "";
+        res += "Order id: " + _id  + "\n";
         res += "Order date: " + orderDate + "\n";
         res += "Products:\n";
         for (int i = 0; i < orderProducts.size(); i++) {

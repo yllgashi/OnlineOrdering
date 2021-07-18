@@ -21,4 +21,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="create_product_title">"New product"</string>
     <string name="create_request_title">"New order"</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="make_as_arrived">Make as arrived</string>
+    <string name="ok">Ok</string>
 </resources>

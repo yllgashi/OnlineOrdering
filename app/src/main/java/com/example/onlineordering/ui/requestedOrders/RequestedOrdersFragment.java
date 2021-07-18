@@ -1,6 +1,8 @@
 package com.example.onlineordering.ui.requestedOrders;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,12 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,6 +49,8 @@ public class RequestedOrdersFragment extends Fragment {
     private RequestedOrdersViewModel homeViewModel;
     ArrayAdapter<String> adapter;
     private RequestQueue mQueue;
+    private ListView listView;
+    private Context context;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,9 +64,12 @@ public class RequestedOrdersFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(@Nullable String s) {
+
+                context = root.getContext();
                 // initialize widgets
                 InitializeList(root);
                 InitializeFabMethod(root);
+                InitializeItemOnClickMethod();
             }
         });
         return root;
@@ -68,7 +79,7 @@ public class RequestedOrdersFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void InitializeList(View fragmentView) {
         ArrayList<Order> ordersToShow = new ArrayList<Order>();
-        ListView listview = (ListView) fragmentView.findViewById(R.id.requested_orders_list_view);
+        listView = (ListView) fragmentView.findViewById(R.id.requested_orders_list_view);
 
         mQueue = Volley.newRequestQueue(fragmentView.getContext());
 
@@ -109,7 +120,7 @@ public class RequestedOrdersFragment extends Fragment {
                                     adapter = new ArrayAdapter<String>(
 
                                             getActivity(), android.R.layout.simple_list_item_1, ordersNames);
-                                    listview.setAdapter(adapter);
+                                    listView.setAdapter(adapter);
                                 }
                             }
                         } catch (JSONException e) {
@@ -156,5 +167,71 @@ public class RequestedOrdersFragment extends Fragment {
                 startActivity(intent);
             }
         }));
+    }
+
+    private void InitializeItemOnClickMethod() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) parent.getItemAtPosition(position);
+
+                // fetch id of order
+                String[] temp = selectedItem.substring(10, selectedItem.length() - 1).split("\n");
+                String orderId = temp[0];
+
+                createDialog(orderId);
+            }
+        });
+    }
+
+    private void createDialog(String orderId) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        // Add title
+//        builder.setMessage("Make as arrived")
+//                .setTitle("Make as arrived");
+//
+//// Add the buttons
+//        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                // User clicked OK button
+//                makeOrderAsArrived(orderId);
+//            }
+//        });
+//        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                // User cancelled the dialog
+//            }
+//        });
+//// Set other dialog properties
+//
+//// Create the AlertDialog
+//        AlertDialog dialog = builder.create();
+//
+//        DialogFragment newFragment = new FireMissilesDialogFragment();
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Make order as arrived?");
+        // alert.setMessage("Message");
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //Your action here
+                makeOrderAsArrived(orderId);
+            }
+        });
+
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+
+        alert.show();
+
+    }
+
+    private void makeOrderAsArrived(String orderId) {
+
     }
 }
