@@ -29,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.onlineordering.R;
 import com.example.onlineordering.api.ApiService;
@@ -51,6 +52,7 @@ public class RequestedOrdersFragment extends Fragment {
     private RequestQueue mQueue;
     private ListView listView;
     private Context context;
+    private ArrayList<Order> ordersToShow;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +80,6 @@ public class RequestedOrdersFragment extends Fragment {
     // Initialize list view
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void InitializeList(View fragmentView) {
-        ArrayList<Order> ordersToShow = new ArrayList<Order>();
         listView = (ListView) fragmentView.findViewById(R.id.requested_orders_list_view);
 
         mQueue = Volley.newRequestQueue(fragmentView.getContext());
@@ -185,34 +186,8 @@ public class RequestedOrdersFragment extends Fragment {
     }
 
     private void createDialog(String orderId) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        // Add title
-//        builder.setMessage("Make as arrived")
-//                .setTitle("Make as arrived");
-//
-//// Add the buttons
-//        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                // User clicked OK button
-//                makeOrderAsArrived(orderId);
-//            }
-//        });
-//        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int id) {
-//                // User cancelled the dialog
-//            }
-//        });
-//// Set other dialog properties
-//
-//// Create the AlertDialog
-//        AlertDialog dialog = builder.create();
-//
-//        DialogFragment newFragment = new FireMissilesDialogFragment();
-
-
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Make order as arrived?");
-        // alert.setMessage("Message");
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -232,6 +207,72 @@ public class RequestedOrdersFragment extends Fragment {
     }
 
     private void makeOrderAsArrived(String orderId) {
+        Order order = null;
+        for (int i = 0; i < ordersToShow.size(); i++) {
 
+            if (ordersToShow.get(i).getOrderId() == orderId) {
+                order = ordersToShow.get(i);
+            }
+        }
+
+        mQueue = Volley.newRequestQueue(context);
+        // create json body
+        JSONObject jsonBody = new JSONObject();
+
+        // create json array of products
+        JSONArray productsBodyArray = new JSONArray();
+        for (int i = 0; i < order.getOrderProducts().size(); i++) {
+            // create product JSON object
+            JSONObject product = new JSONObject();
+            try {
+                product.put("productName", order.getOrderProducts().get(i).getProductName());
+                product.put("productDescription", order.getOrderProducts().get(i).getProductDescription());
+                product.put("productPrice", order.getOrderProducts().get(i).getProductPrice());
+                // add JSONObject into JSONArray
+                productsBodyArray.put(product);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // initialize json body
+        try {
+            jsonBody.put("orderDate", order.getOrderDate());
+            jsonBody.put("orderProducts", productsBodyArray);
+            jsonBody.put("orderDeadline", order.getOrderDeadline());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, ApiService.base_url + "/orders/" + orderId, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(context.getApplicationContext(), "Order updated!", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context.getApplicationContext(), "Incorrect. Try again", Toast.LENGTH_SHORT).show();
+
+            }
+        }) {    //this is the part, that adds the header to the request
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("orderArrived", "true");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer " + ApiService.authToken);
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+
+        mQueue.add(request);
     }
 }
