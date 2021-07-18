@@ -89,9 +89,27 @@ public class CreateRequestOrderActivity extends AppCompatActivity {
         mQueue = Volley.newRequestQueue(this);
         // create json body
         JSONObject jsonBody = new JSONObject();
+
+        // create json array of products
+        JSONArray productsBodyArray = new JSONArray();
+        for (int i = 0; i < order.getOrderProducts().size(); i++) {
+            // create product JSON object
+            JSONObject product = new JSONObject();
+            try {
+                product.put("productName", order.getOrderProducts().get(i).getProductName());
+                product.put("productDescription", order.getOrderProducts().get(i).getProductDescription());
+                product.put("productPrice", order.getOrderProducts().get(i).getProductPrice());
+                // add JSONObject into JSONArray
+                productsBodyArray.put(product);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // initialize json body
         try {
             jsonBody.put("orderDate", order.getOrderDate());
-            jsonBody.put("orderProducts", new JSONArray(order.getOrderProducts()));
+            jsonBody.put("orderProducts", productsBodyArray);
             jsonBody.put("orderDeadline", order.getOrderDeadline());
         } catch (JSONException e) {
             e.printStackTrace();
