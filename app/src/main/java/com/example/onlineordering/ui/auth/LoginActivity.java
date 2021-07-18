@@ -85,23 +85,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 User user = new User(email, password);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                 getToken(user);
-                Handler handler = new Handler();
-                handler.postDelayed(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!loginRequestIsMade)
-                                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                                if (isAuth) {
-                                    intent.putExtra("email", email);
-//                                    intent.putExtra("token", ApiService.authToken);
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                }
-                            }
-                        }, 5000);
+//                Handler handler = new Handler();
+//                handler.postDelayed(
+//                        new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (!loginRequestIsMade)
+//                                    Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+//                                if (isAuth) {
+//                                    intent.putExtra("email", email);
+////                                    intent.putExtra("token", ApiService.authToken);
+//                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                                }
+//                            }
+//                        }, 5000);
 
 
             }
@@ -128,17 +128,19 @@ public class LoginActivity extends AppCompatActivity {
                             // check if token is returned
                             if (token.length() > 5) {
                                 isAuth = true;
+                                ApiService.authToken = token;
                             }
-                            ApiService.authToken = token;
 
                             // check that response is returned from server
-                            loginRequestIsMade = true;
+//                            loginRequestIsMade = true;
 
                             // save token in UserPreferences
 //                            UserPreferences.getInstance().setToken(token);
 
+                            navigateToMainActivity(user.getEmail());
+
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -157,5 +159,13 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         mQueue.add(request);
+    }
+
+    private void navigateToMainActivity(String email) {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+        intent.putExtra("email", email);
+        intent.putExtra("token", ApiService.authToken);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 }
