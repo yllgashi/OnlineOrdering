@@ -85,7 +85,7 @@ public class ArrivedOrdersFragment extends Fragment {
                                 JSONArray products = order.getJSONArray("orderProducts");
 
                                 for (int j = 0; j < products.length(); j++) {
-                                    JSONObject product = products.getJSONObject(i);
+                                    JSONObject product = products.getJSONObject(j);
                                     Product productObject = new Product(
                                             product.getString("productName"),
                                             product.getString("productDescription"),
