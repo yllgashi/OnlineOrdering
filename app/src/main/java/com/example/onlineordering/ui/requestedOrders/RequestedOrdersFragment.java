@@ -86,6 +86,7 @@ public class RequestedOrdersFragment extends Fragment {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiService.base_url + "/orders?orderArrived=false", null,
                 new Response.Listener<JSONArray>() {
+            ArrayList<Order> fetchedOrders = new ArrayList<Order>();
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onResponse(JSONArray response) {
@@ -114,10 +115,10 @@ public class RequestedOrdersFragment extends Fragment {
                                         productsOfOrders,
                                         order.getString("orderDeadline")
                                 );
-                                ordersToShow.add(requestedOrderObject);
+                                fetchedOrders.add(requestedOrderObject);
                                 if (i == response.length() - 1) {
                                     // show data to listview
-                                    ArrayList<String> ordersNames = GetOrdersData(ordersToShow);
+                                    ArrayList<String> ordersNames = GetOrdersData(fetchedOrders);
                                     adapter = new ArrayAdapter<String>(
 
                                             getActivity(), android.R.layout.simple_list_item_1, ordersNames);
@@ -149,9 +150,10 @@ public class RequestedOrdersFragment extends Fragment {
     // Get title of each products
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private ArrayList<String> GetOrdersData(ArrayList<Order> requestedOrders) {
+    private ArrayList<String> GetOrdersData(ArrayList<Order> fetchedOrders) {
+        ordersToShow = fetchedOrders;
         ArrayList<String> requestedOrdersDetails = new ArrayList<String>();
-        requestedOrders.forEach((element) -> requestedOrdersDetails.add(element.toString()));
+        fetchedOrders.forEach((element) -> requestedOrdersDetails.add(element.toString()));
 
         Log.d("DATA", requestedOrdersDetails.get(0));
         return requestedOrdersDetails;
@@ -209,9 +211,9 @@ public class RequestedOrdersFragment extends Fragment {
     private void makeOrderAsArrived(String orderId) {
         Order order = null;
         for (int i = 0; i < ordersToShow.size(); i++) {
-
-            if (ordersToShow.get(i).getOrderId() == orderId) {
-                order = ordersToShow.get(i);
+            order = ordersToShow.get(i);
+            if (order.getOrderId() == orderId) {
+                break;
             }
         }
 
@@ -240,6 +242,7 @@ public class RequestedOrdersFragment extends Fragment {
             jsonBody.put("orderDate", order.getOrderDate());
             jsonBody.put("orderProducts", productsBodyArray);
             jsonBody.put("orderDeadline", order.getOrderDeadline());
+            jsonBody.put("orderArrived", true);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -25,6 +25,8 @@ public class Order {
         this.orderDeadline = orderDeadline;
     }
 
+    public Order(){}
+
     public String getOrderId() {
         return _id;
     }
