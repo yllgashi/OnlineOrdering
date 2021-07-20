@@ -40,8 +40,10 @@ import java.util.Map;
 public class ArrivedOrdersFragment extends Fragment {
 
     private ArrivedOrdersViewModel arrivedOrdersViewModel;
-    ArrayAdapter<String> adapter;
     private RequestQueue mQueue;
+    ArrayAdapter<String> adapter;
+    private ListView listview;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,14 +51,14 @@ public class ArrivedOrdersFragment extends Fragment {
                 new ViewModelProvider(this).get(ArrivedOrdersViewModel.class);
 
         // get fragment element
-        View root = inflater.inflate(R.layout.fragment_arrived_orders, container, false);
+        root = inflater.inflate(R.layout.fragment_arrived_orders, container, false);
 
         arrivedOrdersViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(@Nullable String s) {
                 // initialize widgets
-                InitializeList(root);
+                InitializeList();
             }
         });
         return root;
@@ -65,11 +67,11 @@ public class ArrivedOrdersFragment extends Fragment {
     // Initialize list view
     // Initialize list view
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void InitializeList(View fragmentView) {
+    public void InitializeList() {
         ArrayList<Order> ordersToShow = new ArrayList<Order>();
-        ListView listview = (ListView) fragmentView.findViewById(R.id.arrived_orders_list_view);
+        listview = (ListView) root.findViewById(R.id.arrived_orders_list_view);
 
-        mQueue = Volley.newRequestQueue(fragmentView.getContext());
+        mQueue = Volley.newRequestQueue(root.getContext());
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiService.base_url + "/orders?orderArrived=true", null,
                 new Response.Listener<JSONArray>() {

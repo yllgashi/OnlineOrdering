@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.text_password);
         loginButton = findViewById(R.id.btn_login);
 
+        // Initialize callbacks
         initializeLoginButton();
     }
 
