@@ -28,4 +28,9 @@
     <string name="create_product_name_input">Product name</string>
     <string name="create_product_description_input">Product description</string>
     <string name="create_product_price_input">Product price</string>
+    <string name="quanity_placeholder">Quantity</string>
+    <string name="product_name_placeholder">Product name</string>
+    <string name="deadline_placeholder">Deadline</string>
+    <string name="product_description_placeholder">Description</string>
+    <string name="product_price_placeholder">Price</string>
 </resources>

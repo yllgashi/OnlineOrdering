@@ -6,12 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,6 +44,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +57,10 @@ public class RequestedOrdersFragment extends Fragment {
     private ListView listView;
     private Context context;
     private ArrayList<Order> ordersToShow;
+    // Dialog values
+    private String productNameFromDialog;
+    private int productQuantityFromDialog;
+    private String deadlineFromDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +94,8 @@ public class RequestedOrdersFragment extends Fragment {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiService.base_url + "/orders?orderArrived=false", null,
                 new Response.Listener<JSONArray>() {
-            ArrayList<Order> fetchedOrders = new ArrayList<Order>();
+                    ArrayList<Order> fetchedOrders = new ArrayList<Order>();
+
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onResponse(JSONArray response) {
@@ -166,8 +175,7 @@ public class RequestedOrdersFragment extends Fragment {
         fab.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CreateRequestOrderActivity.class);
-                startActivity(intent);
+                createOrderDialog();
             }
         }));
     }
@@ -264,6 +272,114 @@ public class RequestedOrdersFragment extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("orderArrived", "true");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer " + ApiService.authToken);
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+
+        mQueue.add(request);
+    }
+
+    private void createOrderDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setTitle(R.string.create_request_title);
+        final View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_create_request_order, null);
+        builder.setView(dialogView);
+        final AlertDialog alertDialog = builder.show();
+        // initialize edit texts
+        final EditText productNameEditText = dialogView.findViewById(R.id.edittext_order_dialog_product_name);
+        final EditText productQuantityEditText = dialogView.findViewById(R.id.edittext_order_dialog_product_quantity);
+        final EditText deadlineEditText = dialogView.findViewById(R.id.edittext_order_dialog_deadline);
+
+        productNameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+        productQuantityEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        Button buttonCreateOrder = dialogView.findViewById(R.id.btn_dialog_create_rorder);
+        buttonCreateOrder.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View view) {
+                productNameFromDialog = productNameEditText.getText().toString();
+                productQuantityFromDialog = Integer.parseInt(productQuantityEditText.getText().toString());
+                deadlineFromDialog = deadlineEditText.getText().toString();
+                String nowDate = LocalDateTime.now().toString();
+
+                // Create product and make a post request
+                ArrayList<Product> products = new ArrayList<Product>();
+                products.add(new Product(productNameFromDialog, "", 0));
+                Order order = new Order(nowDate.toString(), products, deadlineFromDialog);
+
+                // Send request
+                sendPostReq(order);
+
+                alertDialog.dismiss();
+            }
+        });
+        Button buttonCancel = dialogView.findViewById(R.id.btn_dialog_cancel_rorder);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+
+    private void sendPostReq(Order order) {
+        mQueue = Volley.newRequestQueue(context);
+        // create json body
+        JSONObject jsonBody = new JSONObject();
+
+        // create json array of products
+        JSONArray productsBodyArray = new JSONArray();
+        for (int i = 0; i < order.getOrderProducts().size(); i++) {
+            // create product JSON object
+            JSONObject product = new JSONObject();
+            try {
+                product.put("productName", order.getOrderProducts().get(i).getProductName());
+                product.put("productDescription", order.getOrderProducts().get(i).getProductDescription());
+                product.put("productPrice", order.getOrderProducts().get(i).getProductPrice());
+                // add JSONObject into JSONArray
+                productsBodyArray.put(product);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // initialize json body
+        try {
+            jsonBody.put("orderDate", order.getOrderDate());
+            jsonBody.put("orderProducts", productsBodyArray);
+            jsonBody.put("orderDeadline", order.getOrderDeadline());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, ApiService.base_url + "/orders", jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(context, "Order added!", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Incorrect. Try again", Toast.LENGTH_SHORT).show();
+
+            }
+        }) {    //this is the part, that adds the header to the request
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("orderArrived", "false");
                 return params;
             }
 

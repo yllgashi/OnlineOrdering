@@ -1,12 +1,9 @@
 package com.example.onlineordering.ui.products;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,22 +146,22 @@ public class ProductsFragment extends Fragment {
             public void onClick(View view) {
 //                Intent intent = new Intent(getActivity(), CreateProductActivity.class);
 //                startActivity(intent);
-                createDialog();
+                createProductDialog();
             }
         }));
     }
 
-    private void createDialog() {
+    private void createProductDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(root.getContext());
         builder.setCancelable(false);
         builder.setTitle(R.string.create_product_title);
-        final View dialogView = LayoutInflater.from(root.getContext()).inflate(R.layout.create_product_dialog, null);
+        final View dialogView = LayoutInflater.from(root.getContext()).inflate(R.layout.dialog_create_product, null);
         builder.setView(dialogView);
         final AlertDialog alertDialog = builder.show();
         // initialize edit texts
-        final EditText productNameEditText = dialogView.findViewById(R.id.create_product_name_input);
-        final EditText productDescriptionEditText = dialogView.findViewById(R.id.create_product_description_input);
-        final EditText productPriceEditText = dialogView.findViewById(R.id.create_product_price_input);
+        final EditText productNameEditText = dialogView.findViewById(R.id.edittext_product_dialog_product_name);
+        final EditText productDescriptionEditText = dialogView.findViewById(R.id.edittext_product_dialog_product_description);
+        final EditText productPriceEditText = dialogView.findViewById(R.id.edittext_product_dialog_product_price);
 
         productNameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
         productDescriptionEditText.setInputType(InputType.TYPE_CLASS_TEXT);
