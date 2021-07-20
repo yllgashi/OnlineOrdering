@@ -6,45 +6,24 @@ import android.content.SharedPreferences;
 import com.example.onlineordering.ui.splash.SplashScreenActivity;
 
 public class UserPreferences {
-    private static UserPreferences instance;
-    private SharedPreferences sharedPreferences;
+    //    private static UserPreferences instance;
+    public static SharedPreferences sharedPreferences;
 
-    public static UserPreferences getInstance() {
-        if (instance == null) {
-            instance = new UserPreferences();
-        }
 
-        return instance;
+    public static void setUserEmail(String email) {
+        sharedPreferences.edit().putString(Constants.USER_EMAIL, email).apply();
     }
 
-
-    private UserPreferences() {
-        instance = this;
-        sharedPreferences = SplashScreenActivity.context.getSharedPreferences(Constants.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-
+    public static String getUserEmail() {
+        return sharedPreferences.getString(Constants.USER_EMAIL, "Not available");
     }
 
-//
-//    public int getUserAccountId() {
-//        return sharedPreferences.getInt(Constants.USER_ACCOUNT_ID, -1);
-//    }
-//
-//
-//    public void setUserAccountId(int accountId) {
-//        sharedPreferences.edit().putInt(Constants.USER_ACCOUNT_ID, accountId).commit();
-//    }
-////
-//    public String getUserEmail() {
-//        return sharedPreferences.getString(Constants.USER_USERNAME, "Not available");
-//    }
-
-    // set token
-    public void setToken(String token) {
-        sharedPreferences.edit().putString(Constants.USER_ACCESS_TOKEN, token).commit();
+    public static void setToken(String token) {
+        sharedPreferences.edit().putString(Constants.USER_ACCESS_TOKEN, token).apply();
     }
 
     // get token
-    public String getToken() {
+    public static String getToken() {
         return sharedPreferences.getString(Constants.USER_ACCESS_TOKEN, "");
     }
 }

@@ -114,6 +114,10 @@ public class LoginActivity extends AppCompatActivity {
                                 isAuth = true;
                                 ApiService.authToken = token;
 
+                                // Initialize user preferences
+                                UserPreferences.setToken(token);
+                                UserPreferences.setUserEmail(emailText.getText().toString());
+
                                 // navigate to main activity if auth is correct
                                 navigateToMainActivity(user.getEmail());
                             }

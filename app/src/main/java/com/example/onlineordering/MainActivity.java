@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         if (bundle != null) {
             email = bundle.getString("email");
             TextView emailTextView = (TextView) findViewById(R.id.text_user_email);
-            emailTextView.setText(email);
+//            emailTextView.setText(email);
         }
     }
 
@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void logoutUser(MenuItem item) {
         ApiService.authToken = "";
-//                UserPreferences.getInstance().setUserAccountId(-1);
+        UserPreferences.setUserEmail("");
+        UserPreferences.setToken("");
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 }
