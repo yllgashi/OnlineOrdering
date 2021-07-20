@@ -66,6 +66,7 @@ public class RequestedOrdersFragment extends Fragment {
     private String productNameFromDialog;
     private int productQuantityFromDialog;
     private String deadlineFromDialog;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class RequestedOrdersFragment extends Fragment {
                 new ViewModelProvider(this).get(RequestedOrdersViewModel.class);
 
         // get fragment element
-        View root = inflater.inflate(R.layout.fragment_requested_orders, container, false);
+        root = inflater.inflate(R.layout.fragment_requested_orders, container, false);
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -265,6 +266,9 @@ public class RequestedOrdersFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(context.getApplicationContext(), "Order updated!", Toast.LENGTH_SHORT).show();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            InitializeList(root);
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -369,7 +373,7 @@ public class RequestedOrdersFragment extends Fragment {
 
     private void updateLabel(EditText dateEditText, Calendar myCalendar) {
         String myFormat = "yyyy/mm/dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ITALY);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 
         dateEditText.setText(sdf.format(myCalendar.getTime()));
 
@@ -412,6 +416,9 @@ public class RequestedOrdersFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(context, "Order added!", Toast.LENGTH_SHORT).show();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            InitializeList(root);
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

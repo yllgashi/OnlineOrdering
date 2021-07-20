@@ -209,6 +209,9 @@ public class ProductsFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(root.getContext(), "Product added!", Toast.LENGTH_SHORT).show();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            InitializeList();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
