@@ -6,12 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
 import com.example.onlineordering.MainActivity;
 import com.example.onlineordering.R;
 import com.example.onlineordering.api.ApiService;
-import com.example.onlineordering.model.User;
 import com.example.onlineordering.ui.auth.LoginActivity;
 import com.example.onlineordering.utils.UserPreferences;
 

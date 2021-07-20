@@ -20,7 +20,6 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class ApiService {
     public static String base_url = "https://online-ordering-express.herokuapp.com";
-    //    public static String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MGU4ZDNjNjcwZjhkZjUxYjBmODJjZmUiLCJpYXQiOjE2MjU4NzEzMDJ9.dYcma5EGKf94l9VKaxagXCkMzU7a30nZKM28Ar_M6F0";
     public static String authToken = "";
 
 //    public String get(String path, RequestParams params) {
