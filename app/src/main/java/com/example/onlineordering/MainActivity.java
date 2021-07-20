@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
             TextView emailTextView = (TextView) findViewById(R.id.text_user_email);
             emailTextView.setText(email);
         }
-//        if (bundle.getString("token").length() > 2)
-//            ApiService.authToken = bundle.getString("token");
     }
 
     @Override

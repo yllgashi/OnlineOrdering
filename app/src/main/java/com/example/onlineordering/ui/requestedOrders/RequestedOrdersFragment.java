@@ -372,7 +372,7 @@ public class RequestedOrdersFragment extends Fragment {
     }
 
     private void updateLabel(EditText dateEditText, Calendar myCalendar) {
-        String myFormat = "yyyy/mm/dd";
+        String myFormat = "yyyy/MM/dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 
         dateEditText.setText(sdf.format(myCalendar.getTime()));
