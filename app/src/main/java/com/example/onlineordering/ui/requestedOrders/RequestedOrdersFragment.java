@@ -1,6 +1,7 @@
 package com.example.onlineordering.ui.requestedOrders;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -44,9 +46,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class RequestedOrdersFragment extends Fragment {
@@ -299,6 +304,8 @@ public class RequestedOrdersFragment extends Fragment {
         final EditText productQuantityEditText = dialogView.findViewById(R.id.edittext_order_dialog_product_quantity);
         final EditText deadlineEditText = dialogView.findViewById(R.id.edittext_order_dialog_deadline);
 
+        createDatePickerDialog(deadlineEditText);
+
         productNameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
         productQuantityEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -309,7 +316,7 @@ public class RequestedOrdersFragment extends Fragment {
             public void onClick(View view) {
                 productNameFromDialog = productNameEditText.getText().toString();
                 productQuantityFromDialog = Integer.parseInt(productQuantityEditText.getText().toString());
-                deadlineFromDialog = deadlineEditText.getText().toString();
+                // we get deadline from calendar picker
                 String nowDate = LocalDateTime.now().toString();
 
                 // Create product and make a post request
@@ -330,6 +337,43 @@ public class RequestedOrdersFragment extends Fragment {
                 alertDialog.dismiss();
             }
         });
+    }
+
+    private void createDatePickerDialog(EditText dateEditText) {
+        final Calendar myCalendar = Calendar.getInstance();
+
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel(dateEditText, myCalendar);
+            }
+
+        };
+
+        dateEditText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(context, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+    }
+
+    private void updateLabel(EditText dateEditText, Calendar myCalendar) {
+        String myFormat = "yyyy/mm/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ITALY);
+
+        dateEditText.setText(sdf.format(myCalendar.getTime()));
+
+        deadlineFromDialog = sdf.format(myCalendar.getTime());
     }
 
 
